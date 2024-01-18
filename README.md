@@ -1,9 +1,7 @@
-# **MSc-Thesis:** On the simulation of GIT-Templates for BSc-Theses
+# EEG+Freview on MSCOCO dataset
 **Author:** *Benedikt Ehinger*
 
-**Supervisor(s):** *Supervisor 1*, *Supervisor 2*
-
-**Year:** *2022*
+**Year:** *2024*
 
 ## Project Description
 >provide a short description of the main goals - just copy from the proposal
