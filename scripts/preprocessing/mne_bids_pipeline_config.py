@@ -1,13 +1,13 @@
 # Default settings for data processing and analysis.
 
-from collections.abc import Sequence
-from typing import Annotated, Any, Callable, Literal, Optional, Union
+# from collections.abc import Sequence
+# from typing import Annotated, Any, Callable, Literal, Optional, Union
 
-from annotated_types import Ge, Interval, Len, MinLen
-from mne import Covariance
-from mne_bids import BIDSPath
+# from annotated_types import Ge, Interval, Len, MinLen
+# from mne import Covariance
+# from mne_bids import BIDSPath
 
-from mne_bids_pipeline.typing import (
+#from mne_bids_pipeline.typing import (
 #     ArbitraryContrast,
 #     DigMontageType,
 #     FloatArrayLike,
@@ -16,7 +16,7 @@ from mne_bids_pipeline.typing import (
 
 # %%
 # # General settings
-
+bids_root = "../../data"
 # bids_root: Optional[PathLike] = None
 # """
 # Specify the BIDS root directory. Pass an empty string or ```None` to use
@@ -53,65 +53,14 @@ from mne_bids_pipeline.typing import (
 # BIDS dataset.
 # """
 
+task = "2024FreeViewingMSCOCO"
 # task: str = ""
 # """
 # The task to process.
 # """
 
-# task_is_rest: bool = False
-# """
-# Whether the task should be treated as resting-state data.
-# """
-
-# runs: Union[Sequence, Literal["all"]] = "all"
-# """
-# The runs to process. If `'all'`, will process all runs found in the
-# BIDS dataset.
-# """
-
-# exclude_runs: Optional[dict[str, list[str]]] = None
-# """
-# Specify runs to exclude from analysis, for each participant individually.
-
-# ???+ example "Example"
-#     ```python
-#     exclude_runs = None  # Include all runs.
-#     exclude_runs = {'01': ['02']}  # Exclude run 02 of subject 01.
-#     ```
-
-# ???+ info "Good Practice / Advice"
-#     Keep track of the criteria leading you to exclude
-#     a run (e.g. too many movements, missing blocks, aborted experiment,
-#     did not understand the instructions, etc.).
-# """
-
-# crop_runs: Optional[tuple[float, float]] = None
-# """
-# Crop the raw data of each run to the specified time interval `[tmin, tmax]`,
-# in seconds. The runs will be cropped before Maxwell or frequency filtering is
-# applied. If `None`, do not crop the data.
-# """
-
-# acq: Optional[str] = None
-# """
-# The BIDS `acquisition` entity.
-# """
-
-# proc: Optional[str] = None
-# """
-# The BIDS `processing` entity.
-# """
-
-# rec: Optional[str] = None
-# """
-# The BIDS `recording` entity.
-# """
-
-# space: Optional[str] = None
-# """
-# The BIDS `space` entity.
-# """
-
+#subjects = "all"
+subjects = ["01"]
 # subjects: Union[Sequence[str], Literal["all"]] = "all"
 # """
 # Subjects to analyze. If `'all'`, include all subjects. To only
@@ -132,6 +81,7 @@ from mne_bids_pipeline.typing import (
 #     ```
 # """
 
+exclude_subjects = []
 # exclude_subjects: Sequence[str] = []
 # """
 # Specify subjects to exclude from analysis. The MEG empty-room mock-subject
@@ -144,24 +94,7 @@ from mne_bids_pipeline.typing import (
 #     The `emptyroom` subject will be excluded automatically.
 # """
 
-# process_empty_room: bool = True
-# """
-# Whether to apply the same pre-processing steps to the empty-room data as
-# to the experimental data (up until including frequency filtering). This
-# is required if you wish to use the empty-room recording to estimate noise
-# covariance (via `noise_cov='emptyroom'`). The empty-room recording
-# corresponding to the processed experimental data will be retrieved
-# automatically.
-# """
-
-# process_rest: bool = True
-# """
-# Whether to apply the same pre-processing steps to the resting-state data as
-# to the experimental data (up until including frequency filtering). This
-# is required if you wish to use the resting-state recording to estimate noise
-# covariance (via `noise_cov='rest'`).
-# """
-
+ch_ types = ["eeg"]
 # ch_types: Annotated[Sequence[Literal["meg", "mag", "grad", "eeg"]], Len(1, 4)] = []
 # """
 # The channel types to consider.
@@ -179,6 +112,7 @@ from mne_bids_pipeline.typing import (
 #     ```
 # """
 
+data_type = "eeg"
 # data_type: Optional[Literal["meg", "eeg"]] = None
 # """
 # The BIDS data type.
@@ -281,6 +215,7 @@ from mne_bids_pipeline.typing import (
 #     ```
 # """
 
+eeg_reference = "average"
 # eeg_reference: Union[Literal["average"], str, Sequence["str"]] = "average"
 # """
 # The EEG reference to use. If `average`, will use the average reference,
@@ -304,6 +239,7 @@ from mne_bids_pipeline.typing import (
 #     ```
 # """
 
+eeg_template_montage = "standard_1005"
 # eeg_template_montage: Optional[Union[str, DigMontageType]] = None
 # """
 # In situations where you wish to process EEG data and no individual
@@ -313,7 +249,7 @@ from mne_bids_pipeline.typing import (
 # the cap manufacturers in their respective manual.
 
 # Please be aware that the actual cap placement most likely deviated somewhat
-from the template, and, therefore, source reconstruction may be impaired.
+# from the template, and, therefore, source reconstruction may be impaired.
 
 # If `None`, do not apply a template montage. If a string, must be the
 # name of a built-in template montage in MNE-Python.
@@ -332,6 +268,7 @@ from the template, and, therefore, source reconstruction may be impaired.
 #     ```
 # """
 
+drop_channels = []
 # drop_channels: Sequence[str] = []
 # """
 # Names of channels to remove from the data. This can be useful, for example,
@@ -345,6 +282,7 @@ from the template, and, therefore, source reconstruction may be impaired.
 #     ```
 # """
 
+# analyze_channels = ["Pz"]
 # analyze_channels: Union[
 #     Literal["all", "ch_types"], Annotated[Sequence["str"], MinLen(1)]
 # ] = "ch_types"
@@ -367,6 +305,7 @@ from the template, and, therefore, source reconstruction may be impaired.
 #     ```
 # """
 
+reader_extra_params = {"units": "uV"}
 # reader_extra_params: dict = {}
 # """
 # Parameters to be passed to `read_raw_bids()` calls when importing raw data.
@@ -394,6 +333,7 @@ from the template, and, therefore, source reconstruction may be impaired.
 # plotting.
 # """
 
+random_state = 42
 # random_state: Optional[int] = 42
 # """
 # You can specify the seed of the random number generator (RNG).
@@ -505,35 +445,6 @@ from the template, and, therefore, source reconstruction may be impaired.
 # """
 
 # %%
-# ## Bad channel detection
-#
-# !!! warning
-#     This functionality will soon be removed from the pipeline, and
-#     will be integrated into MNE-BIDS.
-#
-# "Bad", i.e. flat and overly noisy channels, can be automatically detected
-# using a procedure inspired by the commercial MaxFilter by Elekta. First,
-# a copy of the data is low-pass filtered at 40 Hz. Then, channels with
-# unusually low variability are flagged as "flat", while channels with
-# excessively high variability are flagged as "noisy". Flat and noisy channels
-# are marked as "bad" and excluded from subsequent analysis. See
-# :func:`mne.preprocssessing.find_bad_channels_maxwell` for more information
-# on this procedure. The list of bad channels detected through this procedure
-# will be merged with the list of bad channels already present in the dataset,
-# if any.
-
-# find_flat_channels_meg: bool = False
-# """
-# Auto-detect "flat" channels (i.e. those with unusually low variability) and
-# mark them as bad.
-# """
-
-# find_noisy_channels_meg: bool = False
-# """
-# Auto-detect "noisy" channels and mark them as bad.
-# """
-
-# %%
 # ## Filtering & resampling
 
 # ### Filtering
@@ -558,12 +469,14 @@ from the template, and, therefore, source reconstruction may be impaired.
 # If you need more fancy analysis, you are already likely past this kind
 # of tips! 😇
 
+l_freq = 0.01
 # l_freq: Optional[float] = None
 # """
 # The low-frequency cut-off in the highpass filtering step.
 # Keep it `None` if no highpass filtering should be applied.
 # """
 
+h_freq = 100
 # h_freq: Optional[float] = 40.0
 # """
 # The high-frequency cut-off in the lowpass filtering step.
@@ -622,6 +535,7 @@ from the template, and, therefore, source reconstruction may be impaired.
 # resample your data down to 500 Hz without preventing reliable time-frequency
 # exploration of your data.
 
+raw_resample_sfreq = 250
 # raw_resample_sfreq: Optional[float] = None
 # """
 # Specifies at which sampling frequency the data should be resampled.
@@ -634,45 +548,11 @@ from the template, and, therefore, source reconstruction may be impaired.
 #     ```
 # """
 
-# epochs_decim: int = 1
-# """
-# Says how much to decimate data at the epochs level.
-# It is typically an alternative to the `resample_sfreq` parameter that
-# can be used for resampling raw data. `1` means no decimation.
-
-# ???+ info "Good Practice / Advice"
-#     Decimation requires to lowpass filtered the data to avoid aliasing.
-#     Note that using decimation is much faster than resampling.
-
-# ???+ example "Example"
-#     ```python
-#     epochs_decim = 1  # no decimation
-#     epochs_decim = 4  # decimate by 4, i.e., divide sampling frequency by 4
-#     ```
-# """
-
 # ## Artifact removal
 
 # ### SSP, ICA, and artifact regression
 
-# regress_artifact: Optional[dict[str, Any]] = None
-# """
-# Keyword arguments to pass to the `mne.preprocessing.EOGRegression` model used
-# in `mne.preprocessing.regress_artifact`. If `None`, no time-domain regression will
-# be applied. Note that any channels picked in `regress_artifact["picks_artifact"]` will
-# have the same time-domain filters applied to them as the experimental data.
-
-# Artifact regression is applied before SSP or ICA.
-
-# ???+ example "Example"
-#     For example, if you have MEG reference channel data recorded in three
-#     miscellaneous channels, you could do:
-
-#     ```python
-#     regress_artifact = {"picks": "meg", "picks_artifact": ["MISC 001", "MISC 002", "MISC 003"]}
-#     ```
-# """  # noqa: E501
-
+spatial_filter = "ica"
 # spatial_filter: Optional[Literal["ssp", "ica"]] = None
 # """
 # Whether to use a spatial filter to detect and remove artifacts. The BIDS
@@ -690,91 +570,7 @@ from the template, and, therefore, source reconstruction may be impaired.
 # ways using the configuration options you can find below.
 # """
 
-# min_ecg_epochs: Annotated[int, Ge(1)] = 5
-# """
-# Minimal number of ECG epochs needed to compute SSP projectors.
-# """
-
-# min_eog_epochs: Annotated[int, Ge(1)] = 5
-# """
-# Minimal number of EOG epochs needed to compute SSP projectors.
-# """
-
-# n_proj_eog: dict[str, float] = dict(n_mag=1, n_grad=1, n_eeg=1)
-# """
-# Number of SSP vectors to create for EOG artifacts for each channel type.
-# """
-
-# n_proj_ecg: dict[str, float] = dict(n_mag=1, n_grad=1, n_eeg=1)
-# """
-# Number of SSP vectors to create for ECG artifacts for each channel type.
-# """
-
-# ecg_proj_from_average: bool = True
-# """
-# Whether to calculate the ECG projection vectors based on the the averaged or
-# on individual ECG epochs.
-# """
-
-# eog_proj_from_average: bool = True
-# """
-# Whether to calculate the EOG projection vectors based on the the averaged or
-# on individual EOG epochs.
-# """
-
-# ssp_meg: Literal["separate", "combined", "auto"] = "auto"
-# """
-# Whether to compute SSP vectors for MEG channels separately (`'separate'`)
-# or jointly (`'combined'`) for magnetometers and gradiomenters. When using
-# Maxwell filtering, magnetometer and gradiometer signals are synthesized from
-# multipole moments jointly and are no longer independent, so it can be useful to
-# estimate projectors from all MEG sensors simultaneously. The default is
-# `'auto'`, which will use `'combined'` when Maxwell filtering is used and
-# `'separate'` otherwise.
-# """
-
-# ssp_reject_ecg: Optional[Union[dict[str, float], Literal["autoreject_global"]]] = None
-# """
-# Peak-to-peak amplitude limits of the ECG epochs to exclude from SSP fitting.
-# This allows you to remove strong transient artifacts, which could negatively
-# affect SSP performance.
-
-# The pipeline will automatically try to detect ECG artifacts in
-# your data, and remove them via SSP. For this to work properly, it is
-# recommended to **not** specify rejection thresholds for ECG channels here –
-# otherwise, SSP won't be able to "see" these artifacts.
-# ???+ example "Example"
-#     ```python
-#     ssp_reject_ecg = {'grad': 10e-10, 'mag': 20e-12, 'eeg': 400e-6}
-#     ssp_reject_ecg = {'grad': 15e-10}
-#     ssp_reject_ecg = None
-#     ```
-# """
-
-# ssp_reject_eog: Optional[Union[dict[str, float], Literal["autoreject_global"]]] = None
-# """
-# Peak-to-peak amplitude limits of the EOG epochs to exclude from SSP fitting.
-# This allows you to remove strong transient artifacts, which could negatively
-# affect SSP performance.
-
-# The pipeline will automatically try to detect EOG artifacts in
-# your data, and remove them via SSP. For this to work properly, it is
-# recommended to **not** specify rejection thresholds for EOG channels here –
-# otherwise, SSP won't be able to "see" these artifacts.
-# ???+ example "Example"
-#     ```python
-#     ssp_reject_eog = {'grad': 10e-10, 'mag': 20e-12, 'eeg': 400e-6}
-#     ssp_reject_eog = {'grad': 15e-10}
-#     ssp_reject_eog = None
-#     ```
-# """
-
-# ssp_ecg_channel: Optional[str] = None
-# """
-# Channel to use for ECG SSP. Can be useful when the autodetected ECG channel
-# is not reliable.
-# """
-
+ica_reject = {'eeg': 800e-6}
 # ica_reject: Optional[Union[dict[str, float], Literal["autoreject_local"]]] = None
 # """
 # Peak-to-peak amplitude limits to exclude epochs from ICA fitting. This allows you to
@@ -824,6 +620,7 @@ from the template, and, therefore, source reconstruction may be impaired.
 #     ```
 # """  # noqa: E501
 
+ica_algorithm = "picard-extended_infomax"
 # ica_algorithm: Literal[
 #     "picard", "fastica", "extended_infomax", "picard-extended_infomax"
 # ] = "picard"
@@ -833,6 +630,7 @@ from the template, and, therefore, source reconstruction may be impaired.
 # algorithm (but may converge in less time).
 # """
 
+ica_l_freq = 1.0
 # ica_l_freq: Optional[float] = 1.0
 # """
 # The cutoff frequency of the high-pass filter to apply before running ICA.
@@ -854,6 +652,7 @@ from the template, and, therefore, source reconstruction may be impaired.
 #     us so we can discuss.
 # """
 
+ica_max_iterations = 500
 # ica_max_iterations: int = 500
 # """
 # Maximum number of iterations to decompose the data into independent
@@ -867,6 +666,7 @@ from the template, and, therefore, source reconstruction may be impaired.
 # limit may be too low to achieve convergence.
 # """
 
+ica_n_components = "0.9999999999999999"
 # ica_n_components: Optional[Union[float, int]] = None
 # """
 # MNE conducts ICA as a sort of a two-step procedure: First, a PCA is run
@@ -900,18 +700,6 @@ from the template, and, therefore, source reconstruction may be impaired.
 # `1` or `None` to not perform any decimation.
 # """
 
-# ica_ctps_ecg_threshold: float = 0.1
-# """
-# The threshold parameter passed to `find_bads_ecg` method.
-# """
-
-# ica_eog_threshold: float = 3.0
-# """
-# The threshold to use during automated EOG classification. Lower values mean
-# that more ICs will be identified as EOG-related. If too low, the
-# false-alarm rate increases dramatically.
-# """
-
 # ### Amplitude-based artifact rejection
 #
 # ???+ info "Good Practice / Advice"
@@ -920,6 +708,7 @@ from the template, and, therefore, source reconstruction may be impaired.
 #     You can do a quick average of blink data and check what the amplitude looks
 #     like.
 
+reject = {"eeg": 200e-6}
 # reject: Optional[
 #     Union[dict[str, float], Literal["autoreject_global", "autoreject_local"]]
 # ] = None
@@ -1014,18 +803,6 @@ from the template, and, therefore, source reconstruction may be impaired.
 #     Only display 5 time points per evoked
 #     ```python
 #     report_evoked_n_time_points = 5
-#     ```
-# """
-
-# report_stc_n_time_points: Optional[int] = None
-# """
-# Specifies the number of time points to display for each source estimates
-# in the report. If `None`, it defaults to the current default in MNE-Python.
-
-# ???+ example "Example"
-#     Only display 5 images per source estimate:
-#     ```python
-#     report_stc_n_time_points = 5
 #     ```
 # """
 
