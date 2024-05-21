@@ -1,3 +1,8 @@
+sync_eyelink = True
+sync_eventtype_regex_et = ".*Stimulus image shown.*"
+sync_eventtype_regex = ".*Stimulus image shown.*"
+
+
 # Default settings for data processing and analysis.
 
 # from collections.abc import Sequence
@@ -874,6 +879,7 @@ reject = {"eeg": 200e-6}
 # The maximum amount of RAM per Dask worker.
 # """
 
+mne_log_level = "info"
 # log_level: Literal["info", "error"] = "info"
 # """
 # Set the pipeline logging verbosity.
