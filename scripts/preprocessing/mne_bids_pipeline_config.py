@@ -16,7 +16,7 @@
 
 # %%
 # # General settings
-bids_root = "../../data"
+bids_root = "data"
 # bids_root: Optional[PathLike] = None
 # """
 # Specify the BIDS root directory. Pass an empty string or ```None` to use
@@ -60,7 +60,7 @@ task = "2024FreeViewingMSCOCO"
 # """
 
 #subjects = "all"
-subjects = ["01"]
+subjects = ["001"]
 # subjects: Union[Sequence[str], Literal["all"]] = "all"
 # """
 # Subjects to analyze. If `'all'`, include all subjects. To only
@@ -94,7 +94,7 @@ exclude_subjects = []
 #     The `emptyroom` subject will be excluded automatically.
 # """
 
-ch_ types = ["eeg"]
+ch_types = ["eeg"]
 # ch_types: Annotated[Sequence[Literal["meg", "mag", "grad", "eeg"]], Len(1, 4)] = []
 # """
 # The channel types to consider.
@@ -215,6 +215,14 @@ data_type = "eeg"
 #     ```
 # """
 
+task_is_rest = True
+rest_epochs_overlap = 0
+rest_epochs_duration = 1
+epochs_tmin = 0
+baseline = None
+
+run_source_estimation = False
+
 eeg_reference = "average"
 # eeg_reference: Union[Literal["average"], str, Sequence["str"]] = "average"
 # """
@@ -268,7 +276,7 @@ eeg_template_montage = "standard_1005"
 #     ```
 # """
 
-drop_channels = []
+drop_channels = ["Bipolar64","Bipolar65","sampleNumber"]
 # drop_channels: Sequence[str] = []
 # """
 # Names of channels to remove from the data. This can be useful, for example,
@@ -469,7 +477,7 @@ random_state = 42
 # If you need more fancy analysis, you are already likely past this kind
 # of tips! 😇
 
-l_freq = 0.01
+l_freq = 0.1
 # l_freq: Optional[float] = None
 # """
 # The low-frequency cut-off in the highpass filtering step.
@@ -666,7 +674,7 @@ ica_max_iterations = 500
 # limit may be too low to achieve convergence.
 # """
 
-ica_n_components = "0.9999999999999999"
+ica_n_components = 0.9999999999
 # ica_n_components: Optional[Union[float, int]] = None
 # """
 # MNE conducts ICA as a sort of a two-step procedure: First, a PCA is run
