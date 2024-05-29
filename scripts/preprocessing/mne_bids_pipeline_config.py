@@ -1,5 +1,5 @@
 sync_eyelink = True
-sync_eventtype_regex_et = ".*Stimulus image shown.*"
+#sync_eventtype_regex_et = ".*Stimulus image shown.*"
 sync_eventtype_regex = ".*Stimulus image shown.*"
 
 
