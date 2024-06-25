@@ -62,11 +62,5 @@
 \*Instead of having a separate *notebooks* folder, you can also delete it and integrate your notebooks in the scripts folder. However, notebooks should always be marked by adding `nb_` in front of the file name.
 
 TODO :
-- [ ] Set triggers in Opensesame (working now USB to TTL route) - For this we already made the list (write code)
-- [ ] Gaze Contingency code not working - (debug only)
-- [ ] Mandatory Calibration Breaks after 5 minutes (write code)
-- [ ] Jitter Implementation[400-500ms] (before showing the stimulus to avoid predictability) (write code)
-- [ ] Information about the participants will be collected in another .osexp file (opensesame file). This will include     information and tests like eyesight, epilepsy, etc. The experimenter will take this data in this file digitally.
-- [ ] Lab notebook to note the behavior of the participants during the experiment. To be uploaded in DaRUS
 - [ ] Update wiki with instructions
 - [ ] Setup the 5th monitor for eye test 👻
